@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.egg-info/
+dist/
+build/
+.eggs/
+*.swp
+*.swo
+*~
+.ipynb_checkpoints/
+wandb/
+*.log
+
+# Large result files (regenerate from scripts)
+results/deeplift_motif_analysis_results.pkl
+results/integrated_gradients_random_ppi_per_token_attributions.csv

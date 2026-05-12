@@ -1,0 +1,47 @@
+RESULTS AND FIGURE LEGENDS: DeepLift Attribution Analysis of ppiGPT
+=====================================================================
+Generated: 2026-01-26
+Source figures: DeepLift-gptPPI-FIGURE.pdf, DeepLift-gptPPI-sixPanel.pdf
+Generating scripts:
+  - /Users/drn2/Documents/CYANO-INTERACTOME/sureLLM-based/create_pair_attribution_heatmap.py
+  - /Users/drn2/Documents/CYANO-INTERACTOME/sureLLM-based/twoGuardsGPTexplainability/create_explainability_dashboard.py
+  - /Users/drn2/Documents/CYANO-INTERACTOME/sureLLM-based/full_deeplift_analysis.py
+  - /Users/drn2/Documents/CYANO-INTERACTOME/sureLLM-based/deeplift_motif_discovery_full.py
+Data source: deeplift_motif_analysis_20250629_091944/deeplift_motif_analysis_results.pkl
+=====================================================================
+
+
+RESULTS
+-------
+
+DeepLift attribution analysis reveals position-specific interaction signatures in the ppiGPT sequence model
+
+To interpret the sequence-level features driving ppiGPT interaction predictions, we applied DeepLift attribution analysis to all 1,084 high-confidence Y2H interactions (positive reference set, PRS) and 1,084 randomly paired MED4 proteins (random reference set, RRS). DeepLift attributions were computed using an input x gradient approximation, in which token embeddings are multiplied by their gradients with respect to the predicted interaction probability and summed over the embedding dimension, yielding per-residue attribution scores across the full input sequence (Figure X3, X4).
+
+The ppiGPT model strongly discriminated real interactions from random pairs, assigning mean predicted interaction probabilities of 0.718 +/- 0.347 and 0.207 +/- 0.152 to PRS and RRS pairs, respectively (two-sample t-test, t = 44.36, p = 2.76 x 10^-306; Mann-Whitney U = 1,018,862, p = 1.64 x 10^-192; Cohen's d = 1.91, large effect) (Figure X4A-B). The distributions were further distinguished by a Kolmogorov-Smirnov test (KS = 0.649, p = 6.49 x 10^-216), confirming that the model captures a robust, genome-wide signal distinguishing experimentally validated interactions from random protein pairings.
+
+Per-residue attribution heatmaps across 50 diverse protein pairs, sorted by predicted interaction probability and spanning the full range of model confidence, revealed that high-attribution residues were distributed non-uniformly across both interacting proteins (Figure X3). In real PPIs predicted with high confidence (P >= 0.94), attribution signal was concentrated in discrete, localized regions distributed across both protein 1 and protein 2, consistent with the model recognizing specific subsequence motifs rather than global sequence properties. In contrast, random pairs exhibited diffuse, low-magnitude attributions across both proteins, with no discernible spatial organization. Average attribution profiles computed across all 50 pairs confirmed this pattern: real PPIs showed pronounced attribution peaks at specific positions within both proteins, whereas random pairs displayed a lower-magnitude attribution profile with reduced positional structure (Figure X3, bottom panels).
+
+Mean absolute attribution magnitudes were comparable between datasets (PRS: 0.0081 +/- 0.0047; RRS: 0.0083 +/- 0.0047), indicating that the model does not distinguish interaction classes through attribution magnitude alone but rather through the spatial organization of attribution signal. The correlation between predicted interaction probability and mean absolute attribution differed in sign between datasets (PRS: r = -0.180; RRS: r = +0.223) (Figure X4C-D), suggesting that for real interactions, the model relies on fewer, more specific residue-level features as confidence increases, whereas for random pairs, higher (but still low) predictions are associated with greater total attribution spread.
+
+Motif analysis of high-attribution regions identified 80,119 unique sequence motifs (3- to 5-mers) in the PRS and 270,576 in the RRS, with the larger number in random pairs reflecting the broader sequence diversity of unconstrained protein pairings (Figure X4E-F). The top-ranked PRS motifs (MAAPV, AAPVK, APVKK, VKKTG, KKTGS) represent overlapping segments of a lysine- and valine-rich sequence, consistent with motifs found in positively charged protein-protein interaction interfaces. In contrast, top-ranked RRS motifs (MDKKG, KKGAK, MSSSS, KGAKG, DKKGA) included serine-repeat and glycine-lysine-rich sequences that lacked the overlapping, coherent motif structure observed in the PRS, suggesting these represent generic sequence biases rather than interaction-specific features. A total of 464,169 individual residue positions were analyzed across both datasets.
+
+
+FIGURE LEGENDS
+--------------
+
+Figure X3. DeepLift attribution heatmaps reveal position-specific interaction signatures in ppiGPT predictions.
+(Top) Per-residue absolute DeepLift attribution heatmaps for 50 diverse protein pairs from the positive reference set (PRS, left; n = 50/1,084) and random reference set (RRS, right; n = 50/1,084), sorted in descending order by predicted interaction probability (y-axis labels). Each row represents one protein pair, with protein 1 (positions 0-399) and protein 2 (positions 400-799) shown as contiguous segments separated by a dashed white line. Attribution magnitudes are displayed using a blackbody colormap (black = zero, red/yellow = high attribution), with color scale normalized to the 95th percentile across both datasets. Pairs were selected at evenly spaced rank positions from prediction-sorted results to represent the full spectrum of model confidence. In real PPIs with high predicted probability (P >= 0.94), attribution signal is concentrated in discrete, localized regions within both proteins, whereas random pairs show diffuse, low-magnitude attributions lacking spatial organization. (Bottom) Average DeepLift attribution profiles (mean +/- 1 SD) computed across all 50 displayed pairs for real PPIs (blue, left) and random pairs (orange, right). Real interactions exhibit pronounced position-specific attribution peaks in both protein 1 and protein 2, while random pairs display a lower-magnitude profile with less positional specificity. DeepLift attributions were computed as input embedding x gradient with respect to interaction probability, summed over the 768-dimensional embedding space to yield per-residue scores.
+
+Figure X4. Comparative analysis of ppiGPT predictions and DeepLift-derived sequence motifs for 1,084 real versus 1,084 random MED4 protein pairs.
+(A-B) Prediction probability distributions for real PPIs (A; n = 1,084; mu = 0.718, sigma = 0.347) and random protein pairs (B; n = 1,084; mu = 0.207, sigma = 0.152), shown as violin plots with overlaid histograms. The model assigns significantly higher interaction probabilities to experimentally validated Y2H interactions (two-sample t-test, t = 44.36, p = 2.76 x 10^-306; Cohen's d = 1.91).
+(C-D) Relationship between predicted interaction probability and mean absolute DeepLift attribution for real PPIs (C; Pearson r = -0.180) and random pairs (D; r = +0.223). Each point represents one protein pair. The negative correlation in real PPIs indicates that high-confidence predictions rely on fewer, more specific residue-level features, whereas the positive correlation in random pairs reflects attribution spread across broadly distributed low-signal positions.
+(E-F) Top 20 high-attribution sequence motifs (3- to 5-mers) identified in high-attribution regions (>=90th percentile) for real PPIs (E; 80,119 total unique motifs) and random pairs (F; 270,576 total unique motifs). Motifs were extracted from contiguous high-attribution regions of >=3 residues and ranked by mean attribution score, with a minimum occurrence threshold of 5. Real PPI motifs display overlapping, coherent lysine- and valine-rich sequences (MAAPV/AAPVK/APVKK), while random pair motifs show serine-repeat and glycine-lysine-rich sequences lacking structured overlap. Statistical summary: Mann-Whitney U = 1,018,862, p = 1.64 x 10^-192; Kolmogorov-Smirnov KS = 0.649, p = 6.49 x 10^-216. A total of 464,169 residue positions were analyzed across both datasets.
+
+
+METHODS INSERT (if needed)
+--------------------------
+
+DeepLift attribution analysis of ppiGPT predictions
+
+To identify sequence-level features driving ppiGPT interaction predictions, DeepLift attribution analysis was applied to all 1,084 PRS and 1,084 RRS protein pairs. Attributions were computed using an input x gradient approximation: for each protein pair encoded as <ps1>,PROTEIN1,<ps2>,PROTEIN2,<, token embeddings from the ppiGPT embedding layer (768 dimensions) were captured via a forward hook, gradients were computed with respect to the predicted interaction probability (softmax over output tokens 25-26), and per-token attribution scores were obtained as the element-wise product of embeddings and their gradients, summed over the embedding dimension. Attributions were mapped to individual amino acid positions by parsing the input sequence structure. High-attribution regions were defined as contiguous stretches of >=3 residues with absolute attribution above the 90th within-sequence percentile. Motif analysis extracted all 3- to 5-mer subsequences from high-attribution regions, retaining motifs with >=5 occurrences and ranking by mean attribution score. Statistical comparisons between PRS and RRS prediction distributions used two-sample t-test, Mann-Whitney U test, and Kolmogorov-Smirnov test, with Cohen's d for effect size estimation.
