@@ -1,6 +1,6 @@
 # Explainability Analysis of ppiGPT Interaction Predictions in *Prochlorococcus* MED4
 
-This repository contains code, data, and results for the model explainability analyses described in the accompanying manuscript. These analyses investigate what sequence features drive the predictions of ppiGPT, a protein-protein interaction model created by Kourosh Salehi-Ashtiani.
+This repository contains code, data, and results for the model explainability analyses described in Daakour et al., "Topological entrenchment of adaptive proteins in the streamlined interactome of *Prochlorococcus* MED4." These analyses investigate what sequence features drive the predictions of ppiGPT, a protein-protein interaction model created by Kourosh Salehi-Ashtiani.
 
 ## Overview
 
@@ -102,23 +102,11 @@ python visualization/create_pair_attribution_heatmap.py
 - Captum (DeepLift, Integrated Gradients)
 - scipy, numpy, matplotlib, seaborn, pandas
 
-## Contributing (Co-authors)
+## Citation
 
-This repository accompanies a manuscript currently in preparation. If you are a co-author, please add your contributions to the appropriate sections:
+This repository is part of:
 
-- **Data contributors**: Add input datasets (e.g., Y2H results, proteomics, structural data) to `data/` with a brief description in `documentation/data_provenance.md`
-- **Analysis contributors**: Add analysis scripts to the relevant `analysis/` subdirectory. Use relative paths (see existing scripts for the pattern)
-- **Figure contributors**: Add publication-ready figures to `figures/` and update `documentation/results_and_figure_legends.txt`
-- **AF3 structural analysis**: Add AlphaFold3 results or N-terminal ablation data to `af3_structural_analysis/`
-
-When adding files, please:
-1. Include a brief docstring at the top of any new script describing what it does
-2. Use relative paths — no hardcoded local or HPC paths
-3. Note any additional dependencies not in `requirements.txt`
-4. Update this README if you add a new analysis method or directory
-
-For large files (>50 MB), upload to the companion Hugging Face repository:
-https://huggingface.co/GreenGenomicsLab/Prochlorococcus_interactome_model_explainability
+> Daakour et al., "Topological entrenchment of adaptive proteins in the streamlined interactome of *Prochlorococcus* MED4."
 
 ## License
 
